@@ -12,15 +12,18 @@ extern keymap_config_t keymap_config;
 
 // Mod-Tap
 #define SFT_BSPC LSFT_T(KC_BSPC)
+#define CMD_BSPC LCMD_T(KC_BSPC)
 #define SFT_A    LSFT_T(KC_A)
 #define SFT_Z    LSFT_T(KC_Z)
 #define SFT_SCLN LSFT_T(KC_SCLN)
 #define SFT_QUOT LSFT_T(KC_QUOT)
+#define SFT_DEL  LSFT_T(KC_DEL)
 #define CMD_DEL  LCMD_T(KC_DEL)
 #define CMD_SPC  RCMD_T(KC_SPC)
 #define ALT_CAPS ALT_T(KC_CAPS)
 #define SFT_ENT  RSFT_T(KC_ENT)
 #define CTL_TAB  CTL_T(KC_TAB)
+#define ALT_TAB  ALT_T(KC_TAB)
 
 // compose keys
 #define CMD_TAB  LCMD(KC_TAB)
@@ -49,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------,                             ,----------------------------------,
  * |   q  |   w  |   e  |   r  |   t  |                             |   y  |   u  |   i  |   o  |   p  |
  * |------+------+------+------+------|                             |-------------+------+------+------|
- * |S^ a  |   s  |   d  |   f  |   g  |                             |   h  |   j  |   k  |   l  | ;  ^S|
+ * |   a  |   s  |   d  |   f  |   g  |                             |   h  |   j  |   k  |   l  |   ; |
  * |------+------+------+------+------|                             |------|------+------+------+------|
  * |      |      |      |      |      |                             |      |      |   (  |   )  | "    |
  * |S^ z  |   x  |   c  |   v  |   b  |                             |   n  |   m  |   ,  |   .  | '  ^S|
@@ -57,25 +60,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        |  {   |   }  |                                                         |  __  |   +  |
  *        |  [   |   ]  |                                                         |   -  |   =  |
  *        '------+------'-------------.                             .-------------'------+------'
- *                      | BS   | DEL  |                             | SPACE|ENTER |
+ *                      | DEL  | BS   |                             | SPACE|ENTER |
  *                      | SHIFT| CMD  |                             | CMD  |SHIFT |
  *                      '------+------'                             '------+------'
  *                                    '------+------' '------+------'
- *                                    | NUM  | Tab  | | CAP  | NUM  |
- *                                    |      | CTRL | | ALT  |      |
+ *                                    | NUM  | NAV  | | Tab  | NUM  |
+ *                                    |      |      | | ALT  |      |
  *                                    '------+------' '------+------'
- *                                    | FN   | ESC  | |      | FN   |
+ *                                    | CTRL | CAPS | | ESC  | FN   |
  *                                    '------+------' '------+------'
  */
 
 [_BASE] = LAYOUT( \
   KC_Q,  KC_W,    KC_E,  KC_R,    KC_T,                               KC_Y,    KC_U,  KC_I,    KC_O,   KC_P,    \
-  SFT_A, KC_S,    KC_D,  KC_F,    KC_G,                               KC_H,    KC_J,  KC_K,    KC_L,   SFT_SCLN,\
+  KC_A,  KC_S,    KC_D,  KC_F,    KC_G,                               KC_H,    KC_J,  KC_K,    KC_L,   KC_SCLN, \
   SFT_Z, KC_X,    KC_C,  KC_V,    KC_B,                               KC_N,    KC_M,  KC_COMM, KC_DOT, SFT_QUOT,\
          KC_LBRC, KC_RBRC,                                                            KC_MINS, KC_EQL,          \
-                         SFT_BSPC,CMD_DEL,                            CMD_SPC, SFT_ENT,                         \
-                                      LY_NUM, CTL_TAB, ALT_CAPS, LY_NUM,                                        \
-                                      LY_FN,  KC_GESC, ____,     LY_FN                                          \
+                         SFT_DEL,CMD_BSPC,                      CMD_SPC, SFT_ENT,                               \
+                                      LY_NUM,  LY_FN,   ALT_TAB, LY_NUM,                                        \
+                                      KC_LCTL, KC_CAPS, KC_GESC, LY_FN                                          \
 ),
 
 /* Layer: function + navigation
@@ -88,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '------+------+------+-------------'                             '-------------+------+------+------'
  *        |      |      |                                                         | <-desktop-> |
  *        '------+------'-------------.                             .-------------'------+------'
- *                      | BS   | DEL  |                             | SPACE|ENTER |
+ *                      | DEL  | BS   |                             | SPACE|ENTER |
  *                      | SHIFT| CMD  |                             | CMD  |SHIFT |
  *                      '------+------'                             '------+------'
  *                                    '------+------' '------+------'
@@ -103,9 +106,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_F6,  KC_F7,  KC_F8, KC_F9, KC_F10,                       ____,    KC_LEFT, KC_DOWN, KC_RIGHT,  KC_MUTE,  \
   KC_F11, KC_F12, ____,  ____,  ____,                         KC_HOME, KC_END,  KC_PGUP, KC_PGDOWN, KC_VOLD,  \
           ____,   ____,                                                         CTL_LEFT,CTL_RGHT,            \
-                         SFT_BSPC,CMD_DEL,                    CMD_SPC, SFT_ENT,                               \
-                                     ____, KC_LCTL, KC_LALT, ____,                                         \
-                                     ____, ____,    ____,    ____                                          \
+                         SFT_DEL,CMD_BSPC,                    CMD_SPC, SFT_ENT,                               \
+                                     ____,    KC_LCTL, KC_LALT, ____,                                         \
+                                     KC_LCTL, ____,    ____,    ____                                          \
 ),
 
 /* Layer: number + symbol
@@ -118,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '------+------+------+-------------'                             '-------------+------+------+------'
  *        |      |      |                                                         |  0   |  .   |
  *        '------+------'-------------.                             .-------------'------+------'
- *                      | BS   | DEL  |                             | SPACE|ENTER |
+ *                      | DEL  | BS   |                             | SPACE|ENTER |
  *                      | SHIFT| CMD  |                             | CMD  |SHIFT |
  *                      '------+------'                             '------+------'
  *                                    '------+------' '------+------'
@@ -132,10 +135,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                       KC_BSLS, KC_7,  KC_8,   KC_9,   KC_MINS,   \
   KC_CIRC, KC_AMPR, KC_ASTR, KC_LT,   KC_GT,                         KC_ASTR, KC_4,  KC_5,   KC_6,   KC_PLUS,   \
   KC_GRV,  ____,    KC_QUES, KC_TILD, KC_PIPE,                       KC_SLSH, KC_1,  KC_2,   KC_3,   KC_EQL,    \
-           ____,    ____,                                                            KC_0,   KC_DOT,             \
-                             SFT_BSPC,CMD_DEL,                       CMD_SPC, SFT_ENT,                           \
-                                           ____, KC_LCTL, KC_LALT, ____,                                         \
-                                           ____, ____,    ____,    ____                                          \
+           ____,    ____,                                                            KC_0,   KC_DOT,            \
+                             SFT_DEL, CMD_BSPC,                      CMD_SPC, SFT_ENT,                          \
+                                       ____,    KC_LCTL, KC_LALT, ____,                                         \
+                                       KC_LCTL, ____,    ____,    ____                                          \
 )
 };
 
