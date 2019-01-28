@@ -52,10 +52,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------,                             ,----------------------------------,
  * |   q  |   w  |   e  |   r  |   t  |                             |   y  |   u  |   i  |   o  |   p  |
  * |------+------+------+------+------|                             |-------------+------+------+------|
- * |   a  |   s  |   d  |   f  |   g  |                             |   h  |   j  |   k  |   l  |   ; |
+ * |   a  |   s  |   d  |   f  |   g  |                             |   h  |   j  |   k  |   l  |   ;  |
  * |------+------+------+------+------|                             |------|------+------+------+------|
  * |      |      |      |      |      |                             |      |      |   (  |   )  | "    |
- * |S^ z  |   x  |   c  |   v  |   b  |                             |   n  |   m  |   ,  |   .  | '  ^S|
+ * |   z  |   x  |   c  |   v  |   b  |                             |   n  |   m  |   ,  |   .  | '    |
  * '------+------+------+-------------'                             '-------------+------+------+------'
  *        |  {   |   }  |                                                         |  __  |   +  |
  *        |  [   |   ]  |                                                         |   -  |   =  |
@@ -67,18 +67,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    | NUM  | NAV  | | Tab  | NUM  |
  *                                    |      |      | | ALT  |      |
  *                                    '------+------' '------+------'
- *                                    | CTRL | CAPS | | ESC  | FN   |
+ *                                    | CTRL | CAPS | | `    | ESC  |
  *                                    '------+------' '------+------'
  */
 
 [_BASE] = LAYOUT( \
   KC_Q,  KC_W,    KC_E,  KC_R,    KC_T,                               KC_Y,    KC_U,  KC_I,    KC_O,   KC_P,    \
   KC_A,  KC_S,    KC_D,  KC_F,    KC_G,                               KC_H,    KC_J,  KC_K,    KC_L,   KC_SCLN, \
-  SFT_Z, KC_X,    KC_C,  KC_V,    KC_B,                               KC_N,    KC_M,  KC_COMM, KC_DOT, SFT_QUOT,\
+  KC_Z,  KC_X,    KC_C,  KC_V,    KC_B,                               KC_N,    KC_M,  KC_COMM, KC_DOT, KC_QUOT, \
          KC_LBRC, KC_RBRC,                                                            KC_MINS, KC_EQL,          \
                          SFT_DEL,CMD_BSPC,                      CMD_SPC, SFT_ENT,                               \
                                       LY_NUM,  LY_FN,   ALT_TAB, LY_NUM,                                        \
-                                      KC_LCTL, KC_CAPS, KC_GESC, LY_FN                                          \
+                                      KC_LCTL, KC_CAPS, KC_GRAVE,KC_ESC                                         \
 ),
 
 /* Layer: function + navigation
