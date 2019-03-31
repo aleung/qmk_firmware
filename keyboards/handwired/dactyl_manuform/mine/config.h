@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define PRODUCT         Dactyl-Manuform (4x5)
+#define PRODUCT         Mini-Thumb-Dactyl
 
 /* key matrix size */
 // Rows are doubled-up
@@ -37,4 +37,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* number of backlight levels */
 // #define BACKLIGHT_LEVELS 3
 
+/* Use I2C or Serial, not both */
+#define USE_SERIAL
+// #define USE_I2C
 
+/* How to determine left/right hand. Choose one: */
+#define SPLIT_HAND_PIN D2  // must have 10k resistor connect to RXI pin
+// #define MASTER_LEFT
+// #define MASTER_RIGHT
