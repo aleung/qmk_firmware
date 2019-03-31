@@ -1,14 +1,12 @@
-#include "../../4x5.h"
+#include "../../keyboard.h"
 #include "action_layer.h"
 
 extern keymap_config_t keymap_config;
 
 #define _BASE 0
 #define _FN   1
-#define _NUM  2
 
-// Fillers to make layering more clear
-#define ____ KC_TRNS
+#define _____ KC_NO
 
 // Mod-Tap
 #define SFT_BSPC LSFT_T(KC_BSPC)
@@ -49,118 +47,50 @@ extern keymap_config_t keymap_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Base (qwerty)
- * ,----------------------------------,                             ,----------------------------------,
- * |   q  |   w  |   e  |   r  |   t  |                             |   y  |   u  |   i  |   o  |   p  |
- * |------+------+------+------+------|                             |-------------+------+------+------|
- * |   a  |   s  |   d  |   f  |   g  |                             |   h  |   j  |   k  |   l  |   ;  |
- * |------+------+------+------+------|                             |------|------+------+------+------|
- * |      |      |      |      |      |                             |      |      |   (  |   )  | "    |
- * |   z  |   x  |   c  |   v  |   b  |                             |   n  |   m  |   ,  |   .  | '    |
- * '------+------+------+-------------'                             '-------------+------+------+------'
- *        |  {   |   }  |                                                         |  __  |   +  |
- *        |  [   |   ]  |                                                         |   -  |   =  |
- *        '------+------'-------------.                             .-------------'------+------'
- *                      | DEL  | BS   |                             | SPACE|ENTER |
- *                      | SHIFT| CMD  |                             | CMD  |SHIFT |
- *                      '------+------'                             '------+------'
- *                                    '------+------' '------+------'
- *                                    | NUM  | NAV  | | Tab  | NUM  |
- *                                    |      |      | | ALT  |      |
- *                                    '------+------' '------+------'
- *                                    | CTRL | CAPS | | `    | ESC  |
- *                                    '------+------' '------+------'
+ * ,----------------------------------------,                        ,----------------------------------------,
+ * |  `~  |  1  |   2  |   3  |   4  |   5  |                        |   6  |   7  |   8  |   9  |   0  |     |
+ * |------+-----+------+------+------+------|                        |------+------+------+------+------+-----|
+ * | TAB  |  q  |   w  |   e  |   r  |   t  |                        |   y  |   u  |   i  |   o  |   p  | \|  |
+ * |------+-----+------+------+------+------|                        |------+------+------+------+------+-----|
+ * | CAPS |  a  |   s  |   d  |   f  |   g  |                        |   h  |   j  |   k  |   l  |  ;:  | '"  |
+ * |------+-----+------+------+------+------|                        |------+------+------+------+------+-----|
+ * | CTRL |  z  |   x  |   c  |   v  |   b  |                        |   n  |   m  |   ,  |   .  |  /?  | ALT |
+ * '------+-----+------+------+------+------'------+          '------+------+------+------+------+------+-----'
+ *              |  {   |   }  | DEL  | BS   | FN   |          | ESC  | SPACE|ENTER |  __  |   +  |
+ *              |  [   |   ]  | SHIFT| CMD  | NAV  |          |      | CMD  |SHIFT |   -  |   =  |
+ *              '------+------'------+------'------+          '------'------+------'------+------'
  */
 
 [_BASE] = LAYOUT( \
-  KC_Q,  KC_W,    KC_E,  KC_R,    KC_T,                               KC_Y,    KC_U,  KC_I,    KC_O,   KC_P,    \
-  KC_A,  KC_S,    KC_D,  KC_F,    KC_G,                               KC_H,    KC_J,  KC_K,    KC_L,   KC_SCLN, \
-  KC_Z,  KC_X,    KC_C,  KC_V,    KC_B,                               KC_N,    KC_M,  KC_COMM, KC_DOT, KC_QUOT, \
-         KC_LBRC, KC_RBRC,                                                            KC_MINS, KC_EQL,          \
-                         SFT_DEL,CMD_BSPC,                      CMD_SPC, SFT_ENT,                               \
-                                      LY_NUM,  LY_FN,   ALT_TAB, LY_NUM,                                        \
-                                      KC_LCTL, KC_CAPS, KC_GRAVE,KC_ESC                                         \
+  KC_GRV,  KC_1,  KC_2,    KC_3,  KC_4,    KC_5,                         KC_6,    KC_7,  KC_8,    KC_9,   KC_0,   _____,  \
+  KC_TAB,  KC_Q,  KC_W,    KC_E,  KC_R,    KC_T,                         KC_Y,    KC_U,  KC_I,    KC_O,   KC_P,   KC_BSLS,\
+  KC_CAPS, KC_A,  KC_S,    KC_D,  KC_F,    KC_G,                         KC_H,    KC_J,  KC_K,    KC_L,   KC_SCLN,KC_QUOT,\
+  KC_LCTL, KC_Z,  KC_X,    KC_C,  KC_V,    KC_B,                         KC_N,    KC_M,  KC_COMM, KC_DOT, KC_SLSH,KC_RALT,\
+                  KC_LBRC, KC_RBRC,                                                      KC_MINS, KC_EQL,                 \
+                                  SFT_DEL,CMD_BSPC, LY_FN,       KC_ESC, CMD_SPC, SFT_ENT                                 \
 ),
 
 /* Layer: function + navigation
- * ,----------------------------------,                             ,----------------------------------,
- * |  F1  | F2   |  F3  |  F4  |  F5  |                             | del  |      |   ^  |      | VOL+ |
- * |------+------+------+------+------|                             |-------------+------+------+------|
- * |  F6  | F7   |  F8  |  F9  |  F10 |                             |      |  <-  |   v  |  ->  | MUTE |
- * |------+------+------+------+------|                             |------|------+------+------+------|
- * |  F11 | F12  |      |      |      |                             | home | end  | PgUp | PgDn | VOL- |
- * '------+------+------+-------------'                             '-------------+------+------+------'
- *        |      |      |                                                         | <-desktop-> |
- *        '------+------'-------------.                             .-------------'------+------'
- *                      | DEL  | BS   |                             | SPACE|ENTER |
- *                      | SHIFT| CMD  |                             | CMD  |SHIFT |
- *                      '------+------'                             '------+------'
- *                                    '------+------' '------+------'
- *                                    |      | CTRL | | ALT  |      |
- *                                    '------+------' '------+------'
- *                                    |      |      | |      |      |
- *                                    '------+------' '------+------'
+ * ,----------------------------------------,                        ,----------------------------------------,
+ * |      |  F1 |  F2  |  F3  |  F4  |  F5  |                        |  F6  |  F7  |  F8  |  F9  |  F10 | F11 |
+ * |------+-----+------+------+------+------|                        |------+------+------+------+------+-----|
+ * | TAB  |     |      |      |      |      |                        |  del | home |   ^  | PgUp | vol+ | F12 |
+ * |------+-----+------+------+------+------|                        |------+------+------+------+------+-----|
+ * |      |     |      |      |      |      |                        |      |  <-  |   v  |   -> | mute |     |
+ * |------+-----+------+------+------+------|                        |------+------+------+------+------+-----|
+ * | CTRL |     |      |      |      |      |                        | home |  end | PgUp | PgDn | vol- |     |
+ * '------+-----+------+------+------+------'------+          '------+------+------+------+------+------+-----'
+ *              |      |      | DEL  | BS   | FN   |          |      | SPACE|ENTER | <-desktop-> |
+ *              |      |      | SHIFT| CMD  | NAV  |          |      | CMD  |SHIFT |             |
+ *              '------+------'------+------'------+          '------'------+------'------+------'
  */
 
 [_FN] = LAYOUT( \
-  KC_F1,  KC_F2,  KC_F3, KC_F4, KC_F5,                        KC_DEL,  KC_HOME, KC_UP,   KC_PGUP,   KC_VOLU,  \
-  KC_F6,  KC_F7,  KC_F8, KC_F9, KC_F10,                       ____,    KC_LEFT, KC_DOWN, KC_RIGHT,  KC_MUTE,  \
-  KC_F11, KC_F12, ____,  ____,  ____,                         KC_HOME, KC_END,  KC_PGUP, KC_PGDOWN, KC_VOLD,  \
-          ____,   ____,                                                         CTL_LEFT,CTL_RGHT,            \
-                         SFT_DEL,CMD_BSPC,                    CMD_SPC, SFT_ENT,                               \
-                                     ____,    KC_LCTL, KC_LALT, ____,                                         \
-                                     KC_LCTL, ____,    ____,    ____                                          \
-),
-
-/* Layer: number + symbol
- * ,----------------------------------,                             ,----------------------------------,
- * |  !   |  @   |  #   |  $   |  %   |                             |  \   |  7   |  8   |  9   |  -   |
- * |------+------+------+------+------|                             |-------------+------+------+------|
- * |  ^   |  &   |  *   |  <   |  >   |                             |  *   |  4   |  5   |  6   |  +   |
- * |------+------+------+------+------|                             |------|------+------+------+------|
- * |  `   |      |  ?   |  ~   |  |   |                             |  /   |  1   |  2   |  3   |  =   |
- * '------+------+------+-------------'                             '-------------+------+------+------'
- *        |      |      |                                                         |  0   |  .   |
- *        '------+------'-------------.                             .-------------'------+------'
- *                      | DEL  | BS   |                             | SPACE|ENTER |
- *                      | SHIFT| CMD  |                             | CMD  |SHIFT |
- *                      '------+------'                             '------+------'
- *                                    '------+------' '------+------'
- *                                    |      | CTRL | | ALT  |      |
- *                                    '------+------' '------+------'
- *                                    |      |      | |      |      |
- *                                    '------+------' '------+------'
- */
-
-[_NUM] = LAYOUT( \
-  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                       KC_BSLS, KC_7,  KC_8,   KC_9,   KC_MINS,   \
-  KC_CIRC, KC_AMPR, KC_ASTR, KC_LT,   KC_GT,                         KC_ASTR, KC_4,  KC_5,   KC_6,   KC_PLUS,   \
-  KC_GRV,  ____,    KC_QUES, KC_TILD, KC_PIPE,                       KC_SLSH, KC_1,  KC_2,   KC_3,   KC_EQL,    \
-           ____,    ____,                                                            KC_0,   KC_DOT,            \
-                             SFT_DEL, CMD_BSPC,                      CMD_SPC, SFT_ENT,                          \
-                                       ____,    KC_LCTL, KC_LALT, ____,                                         \
-                                       KC_LCTL, ____,    ____,    ____                                          \
+  _____,   KC_F1,  KC_F2,  KC_F3, KC_F4, KC_F5,                       KC_F6,   KC_F7,   KC_F8,   KC_F9,     KC_F10,  KC_F11,\
+  KC_TAB,  _____,  _____,  _____, _____, _____,                       KC_DEL,  KC_HOME, KC_UP,   KC_PGUP,   KC_VOLU, KC_F12,\
+  _____,   _____,  _____,  _____, _____, _____,                       _____,   KC_LEFT, KC_DOWN, KC_RIGHT,  KC_MUTE, _____, \
+  KC_LCTL, _____,  _____,  _____, _____, _____,                       KC_HOME, KC_END,  KC_PGUP, KC_PGDOWN, KC_VOLD, _____, \
+                   _____,  _____,                                                       CTL_LEFT,  CTL_RGHT,                \
+                                  SFT_DEL,CMD_BSPC, _____,     _____, CMD_SPC, SFT_ENT                                      \
 )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (get_mods() & MODS_SHIFT_MASK) {
-    // modify keycode on shift pressed
-    switch (keycode) {
-      case KC_COMM:                         // SHIFT + , => (
-        if (record->event.pressed) {
-          register_code(KC_9);
-        } else {
-          unregister_code(KC_9);
-        }
-        return false;
-      case KC_DOT:                          // SHIFT + . => )
-        if (record->event.pressed) {
-          register_code(KC_0);
-        } else {
-          unregister_code(KC_0);
-        }
-        return false;
-    }
-  }
-  return true;
-}
