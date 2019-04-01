@@ -37,9 +37,8 @@ extern keymap_config_t keymap_config;
 #define KC_MB1 KC_MS_BTN1
 #define KC_MB2 KC_MS_BTN1
 
-// toggling layers
-#define LY_FN  TT(_FN)
-#define LY_NUM TT(_NUM)
+// active layers
+#define LY_FN  MO(_FN)
 
 // detect mod status
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -48,7 +47,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Base (qwerty)
  * ,----------------------------------------,                        ,----------------------------------------,
- * |  `~  |  1  |   2  |   3  |   4  |   5  |                        |   6  |   7  |   8  |   9  |   0  |     |
+ * |   ~  |  !  |   @  |   #  |   $  |   %  |                        |   ^  |   &  |   *  |   (  |   )  |     |
+ * |   `  |  1  |   2  |   3  |   4  |   5  |                        |   6  |   7  |   8  |   9  |   0  |     |
  * |------+-----+------+------+------+------|                        |------+------+------+------+------+-----|
  * | TAB  |  q  |   w  |   e  |   r  |   t  |                        |   y  |   u  |   i  |   o  |   p  | \|  |
  * |------+-----+------+------+------+------|                        |------+------+------+------+------+-----|
